@@ -19,6 +19,7 @@ if PGPASSWORD="$DB_PASS" psql -qtAX -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -c
   echo "Database already initialized."
 else
   echo "Initializing database with base module..."
+  sleep 5
   odoo -c /etc/odoo/odoo.conf -i base --stop-after-init
 fi
 
