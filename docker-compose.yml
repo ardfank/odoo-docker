@@ -1,8 +1,8 @@
 services:
   web:
-    image: odoo18:latest
-    # build: .
-    user: "root"
+    # image: odoo18:latest
+    build: .
+    # user: "root"
     depends_on:
       - db
     ports:
