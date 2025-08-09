@@ -2,14 +2,15 @@ services:
   web:
     # image: odoo18:latest
     build: .
-    # user: "root"
+    # user: "100:100"
     depends_on:
       - db
     ports:
       - "8069:8069"      # Odoo web interface
       - "8072:8072"      # Odoo longpolling
-    # environment:
-    #   - HOST=db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=odoo
     #   - USER=odoo
     #   - PASSWORD=odoo
     volumes:
