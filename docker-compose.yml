@@ -1,8 +1,8 @@
 services:
   web:
-    # image: odoo:14
+    # image: odoo18:latest
     build: .
-    user: "root"
+    # user: "root"
     depends_on:
       - db
     ports:
@@ -15,15 +15,15 @@ services:
     volumes:
       - ./odoo-web-data:/var/lib/odoo
       # - ./entrypoint.sh:/mnt/entrypoint.sh
-      # - ./config:/etc/odoo
-      # - ./addons:/mnt/extra-addons
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
       # - ./core:/mnt/core
     # command: ["odoo", "-c", "/etc/odoo/servicedesk.conf"]
     # command: ["odoo", "-c", "/etc/odoo/servicedesk.conf", "-i", "base", "--stop-after-init"]
     # command: ["odoo", "-c", "/etc/odoo/odoo.conf", "-i", "base", "--stop-after-init"]
 
   db:
-    image: postgres:15
+    image: postgres:17
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=odoo
