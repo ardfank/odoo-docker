@@ -1,20 +1,22 @@
 services:
   web:
-    # image: odoo18:latest
-    build: .
+    image: odoo:19
+    # build: .
     # user: "100:100"
     depends_on:
-      - db
+      - dbhr
     ports:
       - "8069:8069"      # Odoo web interface
       - "8072:8072"      # Odoo longpolling
-    environment:
-      - DB_HOST=db
-      - DB_NAME=odoo
+    # environment:
+      # - DB_HOST=dbhr
+      # - DB_NAME=odoo
     #   - USER=odoo
     #   - PASSWORD=odoo
+    container_name: app
+    # entrypoint: []
     volumes:
-      - ./odoo-web-data:/var/lib/odoo
+      - ./Odoo:/var/lib/odoo
       # - ./entrypoint.sh:/mnt/entrypoint.sh
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
@@ -23,11 +25,12 @@ services:
     # command: ["odoo", "-c", "/etc/odoo/servicedesk.conf", "-i", "base", "--stop-after-init"]
     # command: ["odoo", "-c", "/etc/odoo/odoo.conf", "-i", "base", "--stop-after-init"]
 
-  db:
+  dbhr:
     image: postgres:17
+    container_name: db
     environment:
       - POSTGRES_DB=postgres
-      - POSTGRES_USER=odoo
-      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     volumes:
-      - ./odoo-db-data:/var/lib/postgresql/data
+      - ./pg_data:/var/lib/postgresql/data
